@@ -46,6 +46,7 @@ data = dict(
     train=dict(pipeline=train_pipeline),
     val=dict(pipeline=test_pipeline),
     test=dict(pipeline=test_pipeline))
-optimizer_config = dict(lr=0.02, _delete_=True, grad_clip=None)
+optimizer = dict(lr=0.02)
+optimizer_config = dict(_delete_=True, grad_clip=None)
 
 lr_config = dict(warmup='linear')
