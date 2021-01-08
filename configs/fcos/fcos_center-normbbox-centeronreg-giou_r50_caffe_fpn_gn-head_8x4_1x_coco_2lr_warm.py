@@ -50,3 +50,4 @@ optimizer = dict(lr=0.02)
 optimizer_config = dict(_delete_=True, grad_clip=None)
 
 lr_config = dict(warmup='linear', warmup_iters=1000)
+evaluation = dict(interval=4)
