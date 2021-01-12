@@ -185,3 +185,32 @@ def show_result_pyplot(model,
     plt.title(title)
     plt.tight_layout()
     plt.show(block=block)
+
+
+def save_result_pyplot(model,
+                       img,
+                       result,
+                       score_thr=0.3,
+                       fig_size=(15, 10),
+                       title='result',
+                       block=True, file_path=None):
+    """Visualize the detection results on the image.
+
+    Args:
+        model (nn.Module): The loaded detector.
+        img (str or np.ndarray): Image filename or loaded image.
+        result (tuple[list] or list): The detection result, can be either
+            (bbox, segm) or just bbox.
+        score_thr (float): The threshold to visualize the bboxes and masks.
+        fig_size (tuple): Figure size of the pyplot figure.
+        title (str): Title of the pyplot figure.
+        block (bool): Whether to block GUI.
+    """
+    if hasattr(model, 'module'):
+        model = model.module
+    img = model.show_result(img, result, score_thr=score_thr, show=False)
+    plt.figure(figsize=fig_size)
+    plt.imshow(mmcv.bgr2rgb(img))
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(file_path)

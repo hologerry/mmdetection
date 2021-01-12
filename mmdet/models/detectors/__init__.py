@@ -1,5 +1,6 @@
 from .atss import ATSS
 from .base import BaseDetector
+from .base_analysis import BaseDetectorAnalysis
 from .cascade_rcnn import CascadeRCNN
 from .cornernet import CornerNet
 from .detr import DETR
@@ -18,6 +19,7 @@ from .paa import PAA
 from .point_rend import PointRend
 from .reppoints_detector import RepPointsDetector
 from .retinanet import RetinaNet
+from .retinanet_analysis import RetinaNetAnalysis
 from .rpn import RPN
 from .single_stage import SingleStageDetector
 from .trident_faster_rcnn import TridentFasterRCNN
@@ -27,9 +29,9 @@ from .yolact import YOLACT
 from .yolo import YOLOV3
 
 __all__ = [
-    'ATSS', 'BaseDetector', 'SingleStageDetector', 'TwoStageDetector', 'RPN',
+    'ATSS', 'BaseDetector', 'BaseDetectorAnalysis', 'SingleStageDetector', 'TwoStageDetector', 'RPN',
     'FastRCNN', 'FasterRCNN', 'MaskRCNN', 'CascadeRCNN', 'HybridTaskCascade',
-    'RetinaNet', 'FCOS', 'GridRCNN', 'MaskScoringRCNN', 'RepPointsDetector',
+    'RetinaNet', 'RetinaNetAnalysis', 'FCOS', 'GridRCNN', 'MaskScoringRCNN', 'RepPointsDetector',
     'FOVEA', 'FSAF', 'NASFCOS', 'PointRend', 'GFL', 'CornerNet', 'PAA',
     'YOLOV3', 'YOLACT', 'VFNet', 'DETR', 'TridentFasterRCNN'
 ]
