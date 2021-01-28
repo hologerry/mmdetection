@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 from os.path import join as ospj
 
-analysis_results_path = 'analysis_results'
+analysis_results_path = 'analysis_results_fcos'
 
 colormap = plt.get_cmap('GnBu')
 
@@ -30,12 +30,14 @@ for image_idx in range(10):
 
 
     fig = plt.figure(figsize=(8, 8))
+    # fig = plt.figure(figsize=(8, 4))
 
     columns = 4
     rows = 4
 
     for i, feat in enumerate(features):
         p = i if i < 4 else 4 + i
+        # p = i
         fig.add_subplot(rows, columns, p+1)
         plt.imshow(feat)
 

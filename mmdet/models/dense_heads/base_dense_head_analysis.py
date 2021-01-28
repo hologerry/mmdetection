@@ -48,10 +48,14 @@ class BaseDenseHeadAnalysis(nn.Module, metaclass=ABCMeta):
                 losses: (dict[str, Tensor]): A dictionary of loss components.
                 proposal_list (list[Tensor]): Proposals of each image.
         """
+        # outputs_with_features = self(x)
+        # outs = outputs_with_features[:2]
+        # cls_score_list, bbox_pred_list = outs
+        # cls_feat_list, reg_feat_list = outputs_with_features[2:]
         outputs_with_features = self(x)
-        outs = outputs_with_features[:2]
-        cls_score_list, bbox_pred_list = outs
-        cls_feat_list, reg_feat_list = outputs_with_features[2:]
+        outs = outputs_with_features[:3]
+        cls_score_list, bbox_pred_list, _ = outs
+        cls_feat_list, reg_feat_list = outputs_with_features[3:]
         if gt_labels is None:
             loss_inputs = outs + (gt_bboxes, img_metas)
         else:

@@ -95,8 +95,11 @@ class SingleStageDetectorAnalysis(BaseDetectorAnalysis):
             dict[str, Tensor]: A dictionary of loss components.
         """
         super(SingleStageDetectorAnalysis, self).forward_train(img, img_metas)
-        save_image(img, f"analysis_results/image_{batch_idx}.png", normalize=True)
 
+        save_image(img, f"analysis_results_fcos/image_{batch_idx}.png", normalize=True)
+        torch.save(gt_bboxes, f"analysis_results_fcos/image_{batch_idx}_gt_bboxes.pt")
+        torch.save(gt_labels, f"analysis_results_fcos/image_{batch_idx}_gt_labels.pt")
+        # FCOS, not rgb
         x = self.extract_feat(img)
 
         for i, xi in enumerate(x):
@@ -104,17 +107,19 @@ class SingleStageDetectorAnalysis(BaseDetectorAnalysis):
             xi_norm = torch.norm(xi, dim=1, keepdim=True)
             # xi_sum = torch.sum(xi_norm, dim=1, keepdim=True)
             xi_norm_scale = xi_norm / torch.max(xi_norm)
-            save_image(xi_norm_scale, f"analysis_results/image_{batch_idx}_feature_{i}_norm_scale_{analysis_scale}.png")
-            torch.save(xi, f"analysis_results/image_{batch_idx}_feature_{i}_scale_{analysis_scale}.pt")
+            save_image(xi_norm_scale, f"analysis_results_fcos/image_{batch_idx}_feature_{i}_norm_scale_{analysis_scale}.png")
+            torch.save(xi, f"analysis_results_fcos/image_{batch_idx}_feature_{i}_scale_{analysis_scale}.pt")
 
         bbox_head_outputs = self.bbox_head.forward_train(x, img_metas, gt_bboxes,
                                                          gt_labels, gt_bboxes_ignore, batch_idx=batch_idx, analysis_scale=analysis_scale)
         cls_score_list, bbox_pred_list, cls_feat_list, reg_feat_list = bbox_head_outputs[-4:]
+        losses = bbox_head_outputs[0]
+
         for i, (cls, reg, cls_feat, reg_feat) in enumerate(zip(cls_score_list, bbox_pred_list, cls_feat_list, reg_feat_list)):
-            torch.save(cls, f"analysis_results/image_{batch_idx}_cls_{i}_scale_{analysis_scale}.pt")
-            torch.save(reg, f"analysis_results/image_{batch_idx}_reg_{i}_scale_{analysis_scale}.pt")
-            torch.save(cls_feat, f"analysis_results/image_{batch_idx}_cls_feature_{i}_scale_{analysis_scale}.pt")
-            torch.save(reg_feat, f"analysis_results/image_{batch_idx}_reg_feature_{i}_scale_{analysis_scale}.pt")
+            torch.save(cls, f"analysis_results_fcos/image_{batch_idx}_cls_{i}_scale_{analysis_scale}.pt")
+            torch.save(reg, f"analysis_results_fcos/image_{batch_idx}_reg_{i}_scale_{analysis_scale}.pt")
+            torch.save(cls_feat, f"analysis_results_fcos/image_{batch_idx}_cls_feature_{i}_scale_{analysis_scale}.pt")
+            torch.save(reg_feat, f"analysis_results_fcos/image_{batch_idx}_reg_feature_{i}_scale_{analysis_scale}.pt")
 
         test_result = self.simple_test(img, img_metas, rescale, batch_idx)
         # return losses
@@ -137,9 +142,10 @@ class SingleStageDetectorAnalysis(BaseDetectorAnalysis):
         """
         x = self.extract_feat(img)
         outputs = self.bbox_head(x)
-        outs = outputs[:2]
+        # outs = outputs[:2]  # Retina
+        outs = outputs[:3]  # FCOS
         bbox_list = self.bbox_head.get_bboxes(
-            *outs, img_metas, rescale=rescale)
+            *outs, img_metas=img_metas, rescale=rescale)
         # skip post-processing when exporting to ONNX
         if torch.onnx.is_in_onnx_export():
             return bbox_list

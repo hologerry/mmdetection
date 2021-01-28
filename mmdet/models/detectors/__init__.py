@@ -7,6 +7,7 @@ from .detr import DETR
 from .fast_rcnn import FastRCNN
 from .faster_rcnn import FasterRCNN
 from .fcos import FCOS
+from .fcos_analysis import FCOSAnalysis
 from .fovea import FOVEA
 from .fsaf import FSAF
 from .gfl import GFL
@@ -31,7 +32,7 @@ from .yolo import YOLOV3
 __all__ = [
     'ATSS', 'BaseDetector', 'BaseDetectorAnalysis', 'SingleStageDetector', 'TwoStageDetector', 'RPN',
     'FastRCNN', 'FasterRCNN', 'MaskRCNN', 'CascadeRCNN', 'HybridTaskCascade',
-    'RetinaNet', 'RetinaNetAnalysis', 'FCOS', 'GridRCNN', 'MaskScoringRCNN', 'RepPointsDetector',
+    'RetinaNet', 'RetinaNetAnalysis', 'FCOS', 'FCOSAnalysis', 'GridRCNN', 'MaskScoringRCNN', 'RepPointsDetector',
     'FOVEA', 'FSAF', 'NASFCOS', 'PointRend', 'GFL', 'CornerNet', 'PAA',
     'YOLOV3', 'YOLACT', 'VFNet', 'DETR', 'TridentFasterRCNN'
 ]

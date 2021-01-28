@@ -6,13 +6,13 @@ import torch
 import torch.nn.functional as F
 
 
-analysis_results_path = 'analysis_results'
+analysis_results_path = 'analysis_results_fcos'
 
 # feature_type = 'feature' # fpn
 # feature_type = 'cls_feature' # cls
 # feature_type = 'reg_feature' # reg
-feature_type = 'cls' # cls
-# feature_type = 'reg' # reg
+# feature_type = 'cls' # cls
+feature_type = 'reg' # reg
 
 colormap = plt.get_cmap('GnBu')
 

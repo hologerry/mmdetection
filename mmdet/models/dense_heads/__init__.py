@@ -1,4 +1,5 @@
 from .anchor_free_head import AnchorFreeHead
+from .anchor_free_head_analysis import AnchorFreeHeadAnalysis
 from .anchor_head import AnchorHead
 from .anchor_head_analysis import AnchorHeadAnalysis
 from .atss_head import ATSSHead
@@ -6,6 +7,7 @@ from .cascade_rpn_head import CascadeRPNHead, StageCascadeRPNHead
 from .centripetal_head import CentripetalHead
 from .corner_head import CornerHead
 from .fcos_head import FCOSHead
+from .fcos_head_analysis import FCOSHeadAnalysis
 from .fovea_head import FoveaHead
 from .free_anchor_retina_head import FreeAnchorRetinaHead
 from .fsaf_head import FSAFHead
@@ -30,9 +32,9 @@ from .yolact_head import YOLACTHead, YOLACTProtonet, YOLACTSegmHead
 from .yolo_head import YOLOV3Head
 
 __all__ = [
-    'AnchorFreeHead', 'AnchorHead', 'AnchorHeadAnalysis', 'GuidedAnchorHead', 'FeatureAdaption',
+    'AnchorFreeHead', 'AnchorFreeHeadAnalysis', 'AnchorHead', 'AnchorHeadAnalysis', 'GuidedAnchorHead', 'FeatureAdaption',
     'RPNHead', 'GARPNHead', 'RetinaHead', 'RetinaHeadAnalysis', 'RetinaSepBNHead', 'GARetinaHead',
-    'SSDHead', 'FCOSHead', 'RepPointsHead', 'FoveaHead',
+    'SSDHead', 'FCOSHead', 'FCOSHeadAnalysis', 'RepPointsHead', 'FoveaHead',
     'FreeAnchorRetinaHead', 'ATSSHead', 'FSAFHead', 'NASFCOSHead',
     'PISARetinaHead', 'PISASSDHead', 'GFLHead', 'CornerHead', 'YOLACTHead',
     'YOLACTSegmHead', 'YOLACTProtonet', 'YOLOV3Head', 'PAAHead',
