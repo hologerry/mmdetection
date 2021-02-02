@@ -1,7 +1,7 @@
 _base_ = 'fcos_r50_caffe_fpn_gn-head_4x4_1x_coco.py'
 
 model = dict(
-    pretrained='./self_det_output/PixPro/current.pth',
+    pretrained='open-mmlab://detectron2/resnet50_caffe',
     bbox_head=dict(
         norm_on_bbox=True,
         centerness_on_reg=True,
@@ -49,3 +49,4 @@ data = dict(
 optimizer_config = dict(_delete_=True, grad_clip=None)
 
 lr_config = dict(warmup='linear')
+load_from = './self_det_output/PixPro/current_mmdetection_load.pth'
