@@ -105,8 +105,21 @@ def main():
         # use config filename as default work_dir if cfg.work_dir is None
         cfg.work_dir = osp.join('./work_dirs',
                                 osp.splitext(osp.basename(args.config))[0])
+
+    # auto resume, scan existing file
+    if os.path.exists(cfg.work_dir):
+        work_dir_files = os.listdir(cfg.work_dir)
+        work_dir_files = [f for f in work_dir_files if f.endswith(".pth") and f.split('.')[0] != 'latest']
+        if len(work_dir_files)!=0:
+            work_dir_files = sorted(work_dir_files, key=lambda y: int(y.split('.')[0].split('_')[-1]), reverse=True)
+            resume_file = work_dir_files[0]
     if args.resume_from is not None:
         cfg.resume_from = args.resume_from
+    # auto resume
+    if args.resume_from is None and resume_file != "":
+        cfg.resume_from = os.path.join(cfg.work_dir, resume_file)
+        print("Auto resume from {}".format(cfg.resume_from))
+
     if args.gpu_ids is not None:
         cfg.gpu_ids = args.gpu_ids
     else:
